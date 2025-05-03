@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Title</title>
+  <link rel="stylesheet" href="Ejercicio.css">
+</head>
+<body>
+    <header>
+        <h1>Bienvenido a mi sitio</h1>
+    </header>
+    <main>
+        <section class="intro">
+            <p>Este es un laboratorio para practicar CSS externo.</p>
+        </section>
+        <section class="contenido">
+            <h2>Sección de contenido</h2>
+            <p>Aplicaremos el modelo de caja y otros estilos.</p>
+        </section>
+    </main>
+    <section class="preguntas">
+        <h2>Preguntas y respuestas</h2>
+        <ol>
+            <li>
+                <strong>¿Cuál es tu recomendación sobre el uso de <code>!important</code>?</strong><br>
+                Debe evitarse su uso frecuente porque puede dificultar el mantenimiento del código. Solo se recomienda en casos puntuales donde sea necesario sobrescribir reglas difíciles de alterar, como las de librerías externas.
+            </li>
+            <li>
+                <strong>¿Por qué se debe escoger con cuidado una imagen de fondo?</strong><br>
+                Porque afecta la legibilidad del texto, el rendimiento de carga del sitio y la estética general. Debe tener buen contraste y estar optimizada.
+            </li>
+            <li>
+                <strong>¿Qué unidad elegirías entre %, px y pt?</strong><br>
+                Depende del caso: `%` es útil para layouts responsivos, `px` da control preciso en pantalla, y `pt` se usa más en impresión. Para web, se recomienda `%` o `em/rem` para mejor adaptabilidad.
+            </li>
+            <li>
+                <strong>¿Por qué usar una versión minimizada de CSS mejora el rendimiento?</strong><br>
+                Porque reduce el tamaño del archivo, lo que permite que el navegador lo descargue y procese más rápido, mejorando la velocidad de carga del sitio.
+            </li>
+        </ol>
+    </section>    
+    <footer>
+        <p>&copy; 2025 Laboratorio de programación web</p>
+    </footer>
+</body>
+</html>
