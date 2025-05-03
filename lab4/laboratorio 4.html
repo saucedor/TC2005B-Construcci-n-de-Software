@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Laboratorio Fundamentos de JavaScript</title>
+</head>
+<body>
+  <h1>Laboratorio Fundamentos de JavaScript</h1>
+
+  <!-- Ejercicio 1 -->
+  <h2>Ejercicio 1: Tabla de Potencias</h2>
+  <button onclick="generarTabla()">Generar Tabla</button>
+  <div id="tabla"></div>
+
+  <!-- Ejercicio 2 -->
+  <h2>Ejercicio 2: Suma Aleatoria</h2>
+  <button onclick="sumarAleatorio()">Iniciar Juego</button>
+  <p id="sumaResultado"></p>
+
+  <!-- Ejercicio 3 -->
+  <h2>Ejercicio 3: Contador de Números</h2>
+  <input type="text" id="contadorInput" placeholder="ej. -1,0,5,-2,0,3">
+  <button onclick="ejecutarContador()">Contar</button>
+  <p id="resultadoContador"></p>
+
+  <!-- Ejercicio 4 -->
+  <h2>Ejercicio 4: Promedios por Fila</h2>
+  <textarea id="promediosInput" rows="3" cols="40" placeholder="ej. 1,2,3|4,5|10,10"></textarea><br>
+  <button onclick="ejecutarPromedios()">Calcular</button>
+  <p id="resultadoPromedios"></p>
+
+  <!-- Ejercicio 5 -->
+  <h2>Ejercicio 5: Inverso de Número</h2>
+  <input type="number" id="inversoInput" placeholder="ej. 1234">
+  <button onclick="ejecutarInverso()">Invertir</button>
+  <p id="resultadoInverso"></p>
+
+  <!-- Ejercicio 6: Two Sum -->
+  <h2>Ejercicio 6: Two Sum (LeetCode)</h2>
+  <label>Arreglo (separado por comas):</label>
+  <input type="text" id="inputArray" placeholder="ej. 2,7,11,15">
+  <label>Objetivo:</label>
+  <input type="number" id="target" placeholder="ej. 9">
+  <button onclick="resolver()">Buscar</button>
+  <p id="resultado"></p>
+
+  <script>
+    // Ejercicio 1
+    function generarTabla() {
+      let numero = parseInt(prompt("Ingresa un número:"));
+      let html = "<table border='1'><tr><th>Número</th><th>Cuadrado</th><th>Cubo</th></tr>";
+      for (let i = 1; i <= numero; i++) {
+        html += `<tr><td>${i}</td><td>${i**2}</td><td>${i**3}</td></tr>`;
+      }
+      html += "</table>";
+      document.getElementById("tabla").innerHTML = html;
+    }
+
+    // Ejercicio 2
+    function sumarAleatorio() {
+      let a = Math.floor(Math.random() * 10);
+      let b = Math.floor(Math.random() * 10);
+      let inicio = new Date();
+      let respuesta = prompt(`¿Cuánto es ${a} + ${b}?`);
+      let fin = new Date();
+      let tiempo = ((fin - inicio) / 1000).toFixed(2);
+      let mensaje = parseInt(respuesta) === a + b
+        ? `✅ ¡Correcto! Tiempo: ${tiempo} segundos.`
+        : `❌ Incorrecto. Era ${a + b}. Tiempo: ${tiempo} segundos.`;
+      document.getElementById("sumaResultado").innerText = mensaje;
+    }
+
+    // Ejercicio 3: Contador
+    function contador(arr) {
+        let negativos = 0, ceros = 0, positivos = 0;
+        for (let num of arr) {
+        if (num < 0) negativos++;
+        else if (num === 0) ceros++;
+        else positivos++;
+        }
+        return [negativos, ceros, positivos];
+    }
+
+    function ejecutarContador() {
+        let entrada = document.getElementById("contadorInput").value;
+        let numeros = entrada.split(",").map(x => parseInt(x));
+        let [neg, cero, pos] = contador(numeros);
+        document.getElementById("resultadoContador").innerText = 
+        `Negativos: ${neg}, Ceros: ${cero}, Positivos: ${pos}`;
+    }
+
+    // Ejercicio 4: Promedios
+    function promedios(matriz) {
+        return matriz.map(fila => {
+        let suma = fila.reduce((a, b) => a + b, 0);
+        return (suma / fila.length).toFixed(2);
+        });
+    }
+
+    function ejecutarPromedios() {
+        let entrada = document.getElementById("promediosInput").value;
+        let filas = entrada.split("|").map(f => f.split(",").map(Number));
+        let resultado = promedios(filas);
+        document.getElementById("resultadoPromedios").innerText = `Promedios: ${resultado.join(", ")}`;
+    }
+
+    // Ejercicio 5: Inverso
+    function inverso(num) {
+        return parseInt(num.toString().split('').reverse().join(''));
+    }
+
+    function ejecutarInverso() {
+        let num = parseInt(document.getElementById("inversoInput").value);
+        let resultado = inverso(num);
+        document.getElementById("resultadoInverso").innerText = `Inverso: ${resultado}`;
+    }
+
+    // Ejercicio 6
+    class TwoSumSolver {
+      constructor(array, objetivo) {
+        this.numeros = array;
+        this.objetivo = objetivo;
+      }
+
+      buscar() {
+        let mapa = {};
+        for (let i = 0; i < this.numeros.length; i++) {
+          let complemento = this.objetivo - this.numeros[i];
+          if (complemento in mapa) {
+            return [mapa[complemento], i];
+          }
+          mapa[this.numeros[i]] = i;
+        }
+        return null;
+      }
+
+      mostrarResultado() {
+        let indices = this.buscar();
+        return indices ? `Índices: ${indices[0]} y ${indices[1]}` : "No se encontró una solución.";
+      }
+    }
+
+    function resolver() {
+      let arreglo = document.getElementById("inputArray").value.split(",").map(x => parseInt(x));
+      let objetivo = parseInt(document.getElementById("target").value);
+      let solucionador = new TwoSumSolver(arreglo, objetivo);
+      document.getElementById("resultado").innerText = solucionador.mostrarResultado();
+    }
+  </script>
+
+  <!-- Preguntas -->
+  <h2>Preguntas Teóricas</h2>
+  <ul>
+    <li><strong>Diferencias y semejanzas entre Java y JavaScript:</strong><br>
+      Java es compilado, tipado fuerte y orientado a clases. JavaScript es interpretado, tipado dinámico y flexible.<br>
+      Ambos comparten sintaxis básica y son orientados a objetos.
+    </li>
+    <li><strong>Métodos del objeto Date:</strong> getFullYear(), getMonth(), getDate(), getDay(), getHours(), toISOString(), setFullYear().</li>
+    <li><strong>Métodos de arreglos:</strong> push(), pop(), shift(), unshift(), map(), filter(), reduce().</li>
+    <li><strong>Variable local en función:</strong> usar <code>let</code> o <code>const</code> dentro de la función.</li>
+    <li><strong>Implicaciones de variables globales:</strong> efectos colaterales, menor mantenibilidad, riesgo de colisiones y malas prácticas.</li>
+  </ul>
+</body>
+</html>
