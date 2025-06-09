@@ -1,0 +1,56 @@
+3 procedimientos almacenados (ejemplos simples en MySQL)
+1. Agregar nuevo usuario
+
+sql
+Copiar
+Editar
+DELIMITER //
+
+CREATE PROCEDURE agregar_usuario(
+    IN p_nombre VARCHAR(100),
+    IN p_correo VARCHAR(100)
+)
+BEGIN
+    INSERT INTO usuarios (nombre, correo)
+    VALUES (p_nombre, p_correo);
+END;
+//
+
+DELIMITER ;
+
+2. Marcar una tarea como completada
+
+sql
+Copiar
+Editar
+DELIMITER //
+
+CREATE PROCEDURE completar_tarea(
+    IN p_id_tarea INT
+)
+BEGIN
+    UPDATE tareas
+    SET completado = TRUE
+    WHERE id = p_id_tarea;
+END;
+//
+
+DELIMITER ;
+
+3. Obtener todos los comentarios de una campaña
+
+sql
+Copiar
+Editar
+DELIMITER //
+
+CREATE PROCEDURE comentarios_por_campana(
+    IN p_id_campana INT
+)
+BEGIN
+    SELECT * FROM comentarios
+    WHERE campana_id = p_id_campana;
+END;
+//
+
+DELIMITER ;
