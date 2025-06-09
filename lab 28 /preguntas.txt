@@ -1,0 +1,27 @@
+Pregunta 1: ¿Qué utilidad tiene un trigger (ventajas)?
+Sirven para automatizar acciones cuando pasa algo en una tabla (como insertar, borrar o actualizar).
+Ventajas:
+
+Hacen tareas automáticas sin que tú las dispares.
+
+Ayudan a mantener datos coherentes.
+
+Sirven para llevar registros o logs.
+
+Evitan errores si alguien cambia datos mal.
+
+Pregunta 2: ¿Tipos de triggers?
+BEFORE: se activa antes del cambio.
+
+AFTER: se activa después del cambio.
+
+Y puede ser en eventos de INSERT, UPDATE o DELETE.
+
+Pregunta 3: ¿Cuándo no sirven?
+Si complican demasiado la lógica.
+
+Si afectan el rendimiento en cambios masivos.
+
+Si nadie sabe que existen y causan errores raros.
+
+Si se puede hacer más fácil desde la app.
