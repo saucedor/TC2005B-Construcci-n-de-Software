@@ -1,0 +1,48 @@
+Escenario: Cuando se inserta un nuevo registro en la tabla usuarios, se guarda un log con la fecha y el ID insertado en la tabla logs.
+
+-- Crear tabla usuarios (ejemplo)
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    correo VARCHAR(100)
+);
+
+-- Crear tabla logs para auditoría
+CREATE TABLE logs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    mensaje TEXT,
+    fecha DATETIME
+);
+
+-- Trigger AFTER INSERT
+DELIMITER //
+
+CREATE TRIGGER after_insert_usuario
+AFTER INSERT ON usuarios
+FOR EACH ROW
+BEGIN
+    INSERT INTO logs (mensaje, fecha)
+    VALUES (CONCAT('Nuevo usuario insertado con ID: ', NEW.id), NOW());
+END;
+//
+
+DELIMITER ;
+
+Escenario: Antes de una actualización, si se intenta cambiar el campo correo, el trigger lanza un error.
+
+-- Trigger BEFORE UPDATE
+DELIMITER //
+
+CREATE TRIGGER before_update_correo
+BEFORE UPDATE ON usuarios
+FOR EACH ROW
+BEGIN
+    IF NEW.correo <> OLD.correo THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'No se permite cambiar el correo del usuario';
+    END IF;
+END;
+//
+
+DELIMITER ;
+
